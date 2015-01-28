@@ -135,7 +135,10 @@ class IRCHandler(threading.Thread):
       pending_joins += 1
     
     while True :
-      d = f.readline().rstrip()
+      d = f.readline()
+      if d == '' :
+        raise EOFError
+      d = d.rstrip()
       print >> sys.stderr, 'IRC>', d
       if d.startswith(':') :
         p = d.index(' ')
